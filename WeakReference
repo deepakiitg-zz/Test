@@ -1,0 +1,25 @@
+using System;  
+using System.Text;  
+public class Program  
+{  
+  static WeakReference _weakReference;  
+  public static void Main()  
+  {  
+    _weakReference = new WeakReference(new StringBuilder("Hello, World!"));  
+    if (_weakReference.IsAlive)  
+     {  
+       var stringBuilder = _weakReference.Target as StringBuilder;  
+       if (stringBuilder != null)  
+         Console.WriteLine(stringBuilder.ToString());  
+     }  
+     // Invoke GC.Collect  
+     // If this is commented out, the next condition will evaluate true  
+     // GC.Collect();  
+     if (_weakReference.IsAlive)  
+     {  
+       Console.WriteLine("IsAlive");  
+     }  
+     Console.WriteLine("Done!");  
+     Console.ReadLine();  
+   }  
+}
